@@ -1,1 +1,96 @@
-<p>cart works!</p>
+<app-navbar></app-navbar>
+<main class="cart mt-5">
+  <div class="container pt-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-box">
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a>Dashboard</a></li>
+              <li class="breadcrumb-item">Shop</li>
+              <li class="breadcrumb-item active">Cart</li>
+            </ol>
+          </div>
+          <h2 class="page-title">Cart</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+<!--            <h3>Cart</h3>-->
+            <ng-container *ngIf="cartOfUser else emptyCart">
+              <div class="table-responsive mt-2">
+                <table class="table table-striped table-borderless table-centered">
+                  <thead class="table-light">
+                  <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th style="width: 50px;"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let data of cartOfUser.cartItemsList">
+                    <td>
+                      <img [src]="data.product.image"
+                           [alt]="data.product.name"
+                           class="rounded mr-2" height="48">
+                      <p class="m-0 d-inline-block align-middle">
+                        <a class="text-body">{{data.product.name}}</a>
+                      </p>
+                    </td>
+                    <td>
+                      {{data.product.price |currency:'INR'}}
+                    </td>
+                    <td>
+                      <input type="number" min="1" [value]="data.quantity" class="form-control" placeholder="Qty"
+                             style="width: 90px;" (change)="updateCart(data.product.id, $event)">
+                    </td>
+                    <td>
+                      {{data.totalPrice |currency:'INR'}}
+                    </td>
+                    <td>
+                      <a class="text-danger action-icon" (click)="deleteCart(data.product.id)">
+                        <i class="uil uil-times-circle"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-container>
+            <ng-template #emptyCart>
+              cart empty
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h4>Order Summary</h4>
+            <div class="orderSummary">
+              <div class="orderSummaryData">
+                <p>Sub Total</p>
+                <h6>{{cartOfUser.totalPrice | currency:'INR'}}</h6>
+              </div>
+              <div class="orderSummaryData">
+                <p>Shipping</p>
+                <h6>Free</h6>
+              </div>
+              <hr class="w-100" />
+              <div class="orderSummaryData">
+                <p>Total</p>
+                <h6>{{cartOfUser.totalPrice | currency:'INR'}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-block btn-primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+</main>

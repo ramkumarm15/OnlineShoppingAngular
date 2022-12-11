@@ -1,0 +1,27 @@
+.table-striped tbody tr:nth-of-type(odd){
+  background-color: rgba(145, 158, 171, 0.16);
+}
+.orderSummary {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+}
+
+.orderSummaryData {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.orderSummaryData p {
+  color: rgb(145, 158, 171);
+}
+
+.orderSummaryData h6{
+  font-size: 1rem;
+}
+
+.orderSummaryData p, .orderSummaryData h6 {
+  margin: 0;
+}

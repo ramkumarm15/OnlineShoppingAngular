@@ -1,6 +1,6 @@
+<app-navbar></app-navbar>
 <main class="home mt-5">
-  <app-navbar></app-navbar>
-  <div class="container mt-3">
+  <div class="container pt-3">
     <div class="row">
       <div class="col-12">
         <div class="page-title-box">
@@ -16,29 +16,33 @@
     </div>
     <div class="row">
       <div class="col-12 filterAction">
-        <div class="form-group searchForm">
+        <div class="form-group m-0 searchForm">
           <mat-form-field appearance="outline">
-            <mat-label>Search</mat-label>
+            <mat-label>Search <span class="ui uil-search"></span></mat-label>
             <input
               matInput
               placeholder="Search products"
               name="search"
               id="search"
               formControlName="search"
-              required
             />
           </mat-form-field>
         </div>
         <div class="sortAction">
-          <button mat-button [matMenuTriggerFor]="menu">Sort by</button>
+          <button mat-button [matMenuTriggerFor]="menu"><span class="uil uil-filter mr-1"></span>Sort by</button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item class="text-white" (click)="changeFilter('orderAsc')">low to high</button>
-            <button mat-menu-item class="text-white" (click)="changeFilter('orderDesc')">high to low</button>
+            <button mat-menu-item class="text-white" (click)="changeFilter('orderDesc')" title="Price: High To Low">
+              <span class="uil uil-arrow-growth mr-1"></span>
+              Price: High To Low
+            </button>
+            <button mat-menu-item class="text-white" (click)="changeFilter('orderAsc')" title="Price: Low To High">
+              <span class="uil uil-chart-down mr-1"></span> Price: Low To High
+            </button>
           </mat-menu>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-md-4" *ngFor="let product of products">
         <div class="card productCard">
           <div class="productImage">
