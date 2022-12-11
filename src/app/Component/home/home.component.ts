@@ -5,6 +5,9 @@ import {UserService} from 'src/app/Service/user.service';
 import {ProductService} from "../../Service/product.service";
 import {Product} from "../../Model/product";
 import {Router} from "@angular/router";
+import {CartOperations, CartPayload, CartResponse} from "../../Model/cart";
+import {CartService} from "../../Service/cart.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +16,13 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private auth: AuthService,
+    private router: Router,
     private documentTitle: Title,
+    private _snackBar: MatSnackBar,
+    private auth: AuthService,
     private user: UserService,
     private productService: ProductService,
-    private router: Router
+    private cartService: CartService,
   ) {
   }
 
@@ -36,6 +41,14 @@ export class HomeComponent implements OnInit {
       this.id = this.user.id;
     }
     this.getProducts()
+  }
+
+  private snackBar(message: string): void {
+    this._snackBar.open(message, 'close', {
+      duration: 3 * 1000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
   }
 
   getProducts() {
@@ -63,14 +76,30 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  orderByAsc(){
-    this.products.sort(function (a:Product,b:Product){
+  orderByAsc() {
+    this.products.sort(function (a: Product, b: Product) {
       return (a.price - b.price)
     })
   }
-  orderByDesc(){
-    this.products.sort(function (a:Product,b:Product){
+
+  orderByDesc() {
+    this.products.sort(function (a: Product, b: Product) {
       return (b.price - a.price)
+    })
+  }
+
+  addToCart(productId: number) {
+    const payload: CartPayload = {
+      data: {
+        productId,
+        quantity: 1
+      },
+      operation: CartOperations.ADD
+    }
+    this.cartService.addToCart(payload).subscribe({
+      next: (response: CartResponse) => {
+        this.snackBar(response.message)
+      }
     })
   }
 }

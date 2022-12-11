@@ -1,4 +1,4 @@
-<main class="home">
+<main class="home mt-5">
   <app-navbar></app-navbar>
   <div class="container mt-3">
     <div class="row">
@@ -50,7 +50,7 @@
             </h5>
             <div class="productAction">
               <p>{{product.price | currency:'INR'}}</p>
-              <a href="#" class="btn btn-primary">Add to cart</a>
+              <a class="btn btn-primary" (click)="addToCart(product.id)">Add to cart</a>
             </div>
           </div>
         </div>
