@@ -1,0 +1,108 @@
+<div class="auth-fluid">
+  <div class="auth-fluid-right text-center">
+    <h1 class="welcomeText">Hi, Welcome back</h1>
+    <span class="illustration">
+      <img
+        src="https://res.cloudinary.com/ramkumarm15/image/upload/v1666443267/auditmanagement/assets/images/illustration_dashboard_jtjh1d.png"
+        alt="Illustration"
+        class="img-fluid"
+      />
+    </span>
+  </div>
+  <div class="auth-fluid-form-box shadow-sm">
+    <div class="formCard">
+      <h3>Sign in to portal</h3>
+
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="formSubmit()">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              placeholder="Hey, what's your username?"
+              name="username"
+              id="username"
+              formControlName="username"
+              required
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.controls['username'].invalid &&
+                    loginForm.controls['username'].touched,
+                'is-valid': loginForm.controls['username'].valid
+              }"
+            />
+            <mat-error
+              *ngIf="(loginForm.controls['username'].touched || loginForm.invalid) && loginForm.controls['username'].errors?.['required']"
+            >
+              Username is required
+            </mat-error
+            >
+            <mat-error
+              *ngIf="(loginForm.controls['username'].touched || loginForm.invalid) && loginForm.controls['username'].errors?.['minlength']"
+            >
+              Minimum length is 8 characters
+            </mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="passwordInput">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="passwordHide ? 'password' : 'text'"
+              matInput
+              placeholder="Same password everywhere? 😏"
+              name="password"
+              id="password"
+              formControlName="password"
+              required
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.controls['password'].invalid &&
+                    loginForm.controls['password'].touched,
+                'is-valid': loginForm.controls['password'].valid
+              }"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="passwordHide = !passwordHide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="passwordHide"
+            >
+              <mat-icon>{{
+                passwordHide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="( loginForm.controls['password'].touched || loginForm.invalid) && loginForm.controls['password'].errors?.['required']"
+            >
+              Password is required
+            </mat-error
+            >
+            <mat-error
+              *ngIf="(loginForm.controls['password'].touched || loginForm.invalid)&& loginForm.controls['password'].errors?.['minlength']"
+            >
+              Minimum length is 8 characters
+            </mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <button type="submit" mat-stroked-button class="btn btn-lg btn-block">
+            Login
+          </button>
+        </div>
+      </form>
+      <div>
+        <p>
+          New user?
+          <a class="registerBtn" [routerLink]="['/register']"
+          >Create an account</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

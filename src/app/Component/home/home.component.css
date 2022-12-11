@@ -1,0 +1,57 @@
+::ng-deep main.home {
+  height: 100%;
+  min-height: 100vh;
+
+}
+
+::ng-deep .welcomeHomeCard {
+  background-color: rgba(0, 171, 85, 20%);
+}
+
+::ng-deep .welcomeHomeCard .card-body {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 0;
+}
+
+@media (min-width:900px){
+  ::ng-deep .welcomeHomeCard .card-body{
+    flex-direction: row;
+  }
+}
+
+::ng-deep .welcomeHomeText {
+  /* width: ; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+::ng-deep .welcomeHomeText h3 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+::ng-deep .welcomeHomeImage {
+  width: 320px;
+  padding: 16px;
+}
+
+@media (min-width:900px) {
+  ::ng-deep .welcomeHomeImage{
+    width: 220px;
+  }
+}
+
+
+::ng-deep .auditType-group{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.auditType-button{
+  margin-bottom: 12px;
+}

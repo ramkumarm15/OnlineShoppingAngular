@@ -1,0 +1,134 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <form class="form row" [formGroup]="userProfileForm" (ngSubmit)="onFormSubmit()">
+      <div class="col-md-4">
+        <div class="form-group">
+          <mat-form-field appearance="outline" *ngIf="!dataLoading">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Hey, what's your name?"
+              name="name"
+              id="name"
+              formControlName="name"
+              required
+              [ngClass]="{
+                'is-invalid':
+                  userProfileForm.controls['name'].invalid &&
+                  (userProfileForm.controls['name'].dirty ||
+                    userProfileForm.controls['name'].touched),
+                'is-valid': userProfileForm.controls['name'].valid
+              }"/>
+
+            <mat-error
+              *ngIf="(userProfileForm.controls['name'].touched || userProfileForm.invalid)
+              && userProfileForm.controls['name'].errors?.['required']">
+              This field is required
+            </mat-error>
+            <mat-error
+              *ngIf="(userProfileForm.controls['name'].touched || userProfileForm.invalid) && userProfileForm.controls['name'].errors?.['minlength']">
+              Minimum length is 8 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <mat-form-field appearance="outline" *ngIf="!dataLoading">
+            <mat-label>Email Address</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Hey, what's your Email?"
+              name="emailAddress"
+              id="emailAddress"
+              formControlName="emailAddress"
+              required
+              [ngClass]="{
+                'is-invalid':
+                  userProfileForm.controls['emailAddress'].invalid &&
+                    userProfileForm.controls['emailAddress'].touched,
+                'is-valid': userProfileForm.controls['emailAddress'].valid
+              }"/>
+            <mat-error
+              *ngIf="(userProfileForm.controls['emailAddress'].touched || userProfileForm.controls['emailAddress'].touched || userProfileForm.invalid) && userProfileForm.controls['emailAddress'].errors?.['required']">
+              This field is required
+            </mat-error>
+            <mat-error
+              *ngIf="(userProfileForm.controls['emailAddress'].touched || userProfileForm.invalid) && userProfileForm.controls['emailAddress'].errors?.['minlength']">
+              Minimum length is 8 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <mat-form-field appearance="outline" *ngIf="!dataLoading">
+            <mat-label>City</mat-label>
+            <input
+              matInput
+              placeholder="Hey, what's your city name?"
+              name="city"
+              id="city"
+              formControlName="city"
+              required
+              [ngClass]="{
+                'is-invalid':
+                  userProfileForm.controls['city'].invalid &&
+                    userProfileForm.controls['city'].touched,
+                'is-valid': userProfileForm.controls['city'].valid
+              }"/>
+            <mat-error
+              *ngIf="( userProfileForm.controls['city'].touched || userProfileForm.invalid) && userProfileForm.controls['city'].errors?.['required']">
+              city is required
+            </mat-error>
+            <mat-error
+              *ngIf="(userProfileForm.controls['city'].dirty || userProfileForm.invalid) && userProfileForm.controls['city'].errors?.['minlength']">
+              Minimum length is 8 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-12">
+        <mat-form-field appearance="outline" *ngIf="!dataLoading">
+          <mat-label>About</mat-label>
+          <textarea
+            matInput
+            name="about"
+            id="about"
+            formControlName="about"
+            rows="10" cols="30"
+            maxlength="200"
+            [ngClass]="{
+                'is-invalid':
+                  userProfileForm.controls['city'].invalid &&
+                    userProfileForm.controls['city'].touched,
+                'is-valid': userProfileForm.controls['city'].valid
+              }"></textarea>
+          <mat-error
+            *ngIf="(userProfileForm.controls['about'].touched || userProfileForm.invalid) && userProfileForm.controls['about'].errors?.['required']">
+            about is required
+          </mat-error>
+          <mat-error
+            *ngIf="(userProfileForm.controls['about'].dirty || userProfileForm.invalid) && userProfileForm.controls['about'].errors?.['maxlength']">
+            Maximum length is 200 characters
+          </mat-error>
+          <mat-hint>Maximum 200 characters allowed</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-12 mt-3">
+        <ng-container *ngIf="!loading; else elseButton">
+          <button type="submit" class="btn btn-primary float-right">
+            Update
+          </button>
+        </ng-container>
+        <ng-template #elseButton>
+          <button class="btn btn-primary float-right" type="button" disabled>
+            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            Updating...
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</div>

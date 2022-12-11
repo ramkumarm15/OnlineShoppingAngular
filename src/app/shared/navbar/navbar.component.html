@@ -1,0 +1,50 @@
+<div class="topnav shadow-sm">
+  <nav class="navbar navbar-expand-lg topnav-navbar py-0">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">
+        <h4>Account Management</h4>
+      </a>
+      <ul
+        class="d-flex flex-row align-items-center list-unstyled topbar-menu float-end mb-0"
+      >
+        <li class="dropdown notification-list">
+          <button
+            [matMenuTriggerFor]="menu"
+            class="d-flex align-items-center nav-link dropdown-toggle nav-user arrow-none me-0"
+            data-bs-toggle="dropdown"
+            id="topbar-userdrop"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span class="account-user-avatar">
+              <img
+                src="https://res.cloudinary.com/ramkumarm15/image/upload/v1666682926/auditmanagement/assets/images/avatar_default_yemi8x.jpg"
+                alt="user-image"
+                class="rounded-circle"
+              />
+            </span>
+            <span>
+              <span class="account-user-name">{{ name }}</span>
+            </span>
+          </button>
+          <mat-menu #menu="matMenu" class="profile-dropdown show">
+            <button mat-menu-item>
+              <mat-icon>person</mat-icon>
+              <span>Profile</span>
+            </button>
+            <button [routerLink]="['/user/profile', id]" mat-menu-item>
+              <mat-icon>settings</mat-icon>
+              <span>Settings</span>
+            </button>
+            <div class="dropdown-divider"></div>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

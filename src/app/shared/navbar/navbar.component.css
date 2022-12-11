@@ -1,0 +1,41 @@
+:host ::ng-deep .topnav {
+  background: transparent;
+}
+
+:host ::ng-deep .navbar-brand h4 {
+  color: rgb(255, 255, 255);
+}
+
+::ng-deep .nav-user {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+}
+
+::ng-deep .mat-menu-panel {
+  width: 172px;
+  color: #fff;
+  background: rgb(33, 43, 54);
+  box-shadow: rgb(0 0 0 / 16%) 0 4px 8px 0;
+}
+
+::ng-deep .dropdown-menu {
+  display: block;
+}
+
+::ng-deep .mat-menu-content {
+  padding: 8px;
+}
+
+.mat-menu-item {
+  line-height: 20px;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.mat-menu-item:hover:not([disabled]),
+.mat-menu-item.cdk-program-focused:not([disabled]),
+.mat-menu-item.cdk-keyboard-focused:not([disabled]),
+.mat-menu-item-highlighted:not([disabled]) {
+  background-color: rgba(145, 158, 171, 0.16);
+}

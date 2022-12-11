@@ -1,0 +1,16 @@
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
+  background-color: rgba(145, 158, 171, 0.16);
+  margin-right: 2px;
+  border-radius: 6px;
+}
+
+:host ::ng-deep .mat-tab-label, .mat-tab-link {
+  color: rgb(255, 255, 255);
+  transition: 0.1s ease-in;
+}
+
+:host ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background: transparent;
+}
+
