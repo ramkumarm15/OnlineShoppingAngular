@@ -1,57 +1,39 @@
 ::ng-deep main.home {
   height: 100%;
   min-height: 100vh;
-
 }
 
-::ng-deep .welcomeHomeCard {
-  background-color: rgba(0, 171, 85, 20%);
+.productCard{
+  border-radius: 18px;
 }
 
-::ng-deep .welcomeHomeCard .card-body {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 0;
+.productImage{
+  padding: 12px;
 }
 
-@media (min-width:900px){
-  ::ng-deep .welcomeHomeCard .card-body{
-    flex-direction: row;
-  }
+.productImage img{
+  border-radius: 8px;
 }
 
-::ng-deep .welcomeHomeText {
-  /* width: ; */
+.filterAction{
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-::ng-deep .welcomeHomeText h3 {
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-::ng-deep .welcomeHomeImage {
-  width: 320px;
-  padding: 16px;
-}
-
-@media (min-width:900px) {
-  ::ng-deep .welcomeHomeImage{
-    width: 220px;
-  }
+  justify-content: space-between;
 }
 
 
-::ng-deep .auditType-group{
+.productTitle a:hover{
+  text-decoration: underline #fff 1px;
+  cursor: pointer;
+}
+
+.productAction{
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
 }
 
-.auditType-button{
-  margin-bottom: 12px;
+.productAction p{
+  margin:0;
 }
