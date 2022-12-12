@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   public passwordHide: boolean = true;
   private returnUrl!: string;
-  private pageTitle: string = 'Auth | User Registration';
+  private pageTitle: string = "Login | Online Shopping for Men & Women Shoes"
 
   ngOnInit(): void {
     this.documentTitle.setTitle(this.pageTitle);

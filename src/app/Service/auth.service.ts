@@ -11,13 +11,16 @@ import {UserResponse} from "../Model/user";
   providedIn: 'root',
 })
 export class AuthService {
-  private authUrl: string = environment.baseUrlAuth;
-  private userUrl: string = environment.baseUrlUser;
+  private AUTH_API: string = environment.AUTH_API;
+  private USER_API: string = environment.USER_API;
   private isUserLoggedIn: boolean = false;
   private token: any = localStorage.getItem('access_token')?.toString() || null;
   private jwt: JwtHelperService
+
   /**
-   * Injecting service
+   * Dependency Injections
+   * @param http
+   * @param route
    */
   constructor(private http: HttpClient, private route: Router) {
 
@@ -25,22 +28,26 @@ export class AuthService {
   }
 
   /**
-   * function to login a user
-   * return JWT keys and user data
+   * Send user credentials to Auth API for create JWT token
+   * @param data
    */
   login(data: Login): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.authUrl}/CreateToken`, data);
+    return this.http.post<LoginResponse>(`${this.AUTH_API}/CreateToken`, data);
   }
 
+  /**
+   * Send HTTP request to register new user
+   * @param data
+   */
   register(data: Register): Observable<UserResponse> {
-    return this.http.post<UserResponse>(`${this.userUrl}`, data);
+    return this.http.post<UserResponse>(`${this.USER_API}`, data);
   }
 
-  // function to logout a user
-  // no return
+  /**
+   * Remove JWT token from localstorage to logout
+   */
   logout(): void {
     localStorage.removeItem('access_token');
-    // console.log(this.getUserToken());
     if (this.getUserToken() == null) this.route.navigate(['login']);
   }
 
@@ -68,7 +75,6 @@ export class AuthService {
         !this.jwt.isTokenExpired(this.token)
       ) {
         this.isLoggedIn = true;
-        // console.log(this.isLoggedIn);
       }
     }
     return this.isUserLoggedIn;

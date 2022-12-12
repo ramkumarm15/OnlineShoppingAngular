@@ -24,7 +24,7 @@
               placeholder="Search products"
               name="search"
               id="search"
-              formControlName="search"
+              [(ngModel)]="searchQuery.name"
             />
           </mat-form-field>
         </div>
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="row mt-3">
-      <div class="col-md-4" *ngFor="let product of products">
+      <div class="col-md-4" *ngFor="let product of products | filterBy:searchQuery">
         <div class="card productCard">
           <div class="productImage">
             <img [src]="product.image" class="card-img-top" [alt]="product.name">

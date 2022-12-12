@@ -14,7 +14,7 @@ const SCHEMAS_NAME = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
 })
 export class UserService {
 
-  private url: string = environment.baseUrlUser;
+  private USER_API: string = environment.USER_API;
   private data: any;
   private jwt: JwtHelperService
 
@@ -92,15 +92,26 @@ export class UserService {
     this._userData = value;
   }
 
+  /**
+   * Get data of user from User API
+   */
   getMe(): Observable<User> {
-    return this.http.get<User>(`${this.url}/GetMe`);
+    return this.http.get<User>(`${this.USER_API}/GetMe`);
   }
 
+  /**
+   * Send HTTP request to User API for update data of user
+   * @param data
+   */
   updateUserData(data: any): Observable<UserResponse> {
-    return this.http.put<UserResponse>(`${this.url}/update`, data);
+    return this.http.put<UserResponse>(`${this.USER_API}/update`, data);
   }
 
+  /**
+   * Send HTTP request to User API for update password of user
+   * @param data
+   */
   updateUserPassword(data: any): Observable<UserResponse> {
-    return this.http.patch<UserResponse>(`${this.url}/update/password`, data);
+    return this.http.patch<UserResponse>(`${this.USER_API}/update/password`, data);
   }
 }

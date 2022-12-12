@@ -1,0 +1,15 @@
+.address{
+  margin-bottom: 18px;
+}
+.addressData h5{
+  line-height: 1.5;
+}
+
+.addressData h5 span{
+  color: rgb(145, 158, 171);
+  margin-right: 12px;
+}
+
+.addressAction{
+  margin-top: 12px;
+}

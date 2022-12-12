@@ -23,6 +23,7 @@
     "@auth0/angular-jwt": "^5.1.0",
     "angular-toastify": "^1.0.4",
     "jwt-decode": "^3.1.2",
+    "ngx-filter-pipe": "^2.1.2",
     "rxjs": "~7.5.0",
     "simplebar-angular": "^2.4.1",
     "tslib": "^2.3.0",

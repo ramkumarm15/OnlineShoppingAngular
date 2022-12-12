@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CartService} from "../../Service/cart.service";
 import {Cart, CartOperations, CartPayload, CartResponse} from "../../Model/cart";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-cart',
@@ -10,15 +11,18 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class CartComponent implements OnInit {
 
+  pageTitle:string = "Cart | Online Shopping for Men & Women Shoes"
   cartOfUser !: Cart;
 
   constructor(
+    private documentTitle:Title,
     private _snackBar: MatSnackBar,
     private cartService: CartService
   ) {
   }
 
   ngOnInit(): void {
+    this.documentTitle.setTitle(this.pageTitle);
     this.getCartData()
   }
 
@@ -59,7 +63,6 @@ export class CartComponent implements OnInit {
   }
 
   deleteCart(productId: number) {
-
 
     const payload: CartPayload = {
       data: {

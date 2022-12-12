@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
 export class ProfileComponent implements OnInit {
   constructor(private documentTitle: Title) {}
 
-  private pageTitle: string = 'Account | User Regisration';
+  private pageTitle: string = "Profile | Online Shopping for Men & Women Shoes"
 
   ngOnInit(): void {
     this.documentTitle.setTitle(this.pageTitle);

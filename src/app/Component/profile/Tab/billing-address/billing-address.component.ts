@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
+import {CreateBillingComponent} from "./create-billing/create-billing.component";
+import {BillingAddressService} from "../../../../Service/billing-address.service";
+import {BillingAddress} from "../../../../Model/billing-address";
 
 @Component({
   selector: 'app-billing-address',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BillingAddressComponent implements OnInit {
 
-  constructor() { }
+  data!: BillingAddress[];
+
+  constructor(
+    private dialog: MatDialog,
+    private service: BillingAddressService
+  ) {
+  }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
+    this.service.getBillingAddress().subscribe({
+      next: (response: BillingAddress[]) => {
+        console.log(response)
+        this.data = response;
+      }
+    })
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CreateBillingComponent);
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res)
+    })
   }
 
 }

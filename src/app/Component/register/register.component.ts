@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   passwordHide: boolean = true;
 
-  private pageTitle: string = 'Register Account | User Registration';
+  private pageTitle: string = "Create account | Online Shopping for Men & Women Shoes"
 
   ngOnInit(): void {
     this.documentTitle.setTitle(this.pageTitle);

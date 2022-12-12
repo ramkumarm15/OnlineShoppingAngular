@@ -26,12 +26,13 @@ export class HomeComponent implements OnInit {
   ) {
   }
 
-  private pageTitle = 'Home | User Registration';
+  private pageTitle = "Online Shopping for Men & Women Shoes";
 
   name: string = '';
   id: number = 0;
   data: any;
-  products !: Product[]
+  products !: Product[];
+  searchQuery: any = {name: ''};
 
   ngOnInit(): void {
     this.documentTitle.setTitle(this.pageTitle);

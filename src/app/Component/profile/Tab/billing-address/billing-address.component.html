@@ -3,118 +3,29 @@
     <div class="row">
       <div class="col-12 d-flex align-items-center justify-content-between">
         <h4>Billing Address</h4>
-        <button class="btn">Create new Address</button>
+        <button class="btn" (click)="openDialog()">Create new Address</button>
       </div>
     </div>
-<!--    <form class="form row" [formGroup]="changePasswordForm" (ngSubmit)="onPasswordSubmit()">-->
-<!--      <div class="col-md-12">-->
-<!--        <div class="form-group">-->
-<!--          <mat-form-field appearance="outline">-->
-<!--            <mat-label>Old Password</mat-label>-->
-<!--            <input-->
-<!--              [type]="passwordHide ? 'password' : 'text'"-->
-<!--              matInput-->
-<!--              placeholder="Type your old password"-->
-<!--              name="oldPassword"-->
-<!--              id="oldPassword"-->
-<!--              formControlName="oldPassword"-->
-<!--              required-->
-<!--              [ngClass]="{-->
-<!--                'is-invalid':-->
-<!--                  changePasswordForm.controls['oldPassword'].invalid &&-->
-<!--                    changePasswordForm.controls['oldPassword'].touched,-->
-<!--                'is-valid': changePasswordForm.controls['oldPassword'].valid-->
-<!--              }" />-->
-<!--            <button type="button" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"-->
-<!--                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">-->
-<!--              <mat-icon>{{-->
-<!--                passwordHide ? "visibility_off" : "visibility"-->
-<!--                }}</mat-icon>-->
-<!--            </button>-->
-<!--            <mat-error-->
-<!--              *ngIf="(changePasswordForm.controls['oldPassword'].touched || changePasswordForm.controls['oldPassword'].invalid ) && changePasswordForm.controls['oldPassword'].errors?.['required']">-->
-<!--              This field is required</mat-error>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="col-md-12">-->
-<!--        <div class="form-group">-->
-<!--          <mat-form-field appearance="outline">-->
-<!--            <mat-label>New Password</mat-label>-->
-<!--            <input-->
-<!--              [type]="passwordHide ? 'password' : 'text'"-->
-<!--              matInput-->
-<!--              placeholder="Type new passsword"-->
-<!--              name="newPassword"-->
-<!--              id="newPassword"-->
-<!--              formControlName="newPassword"-->
-<!--              required-->
-<!--              [ngClass]="{-->
-<!--                'is-invalid':-->
-<!--                  changePasswordForm.controls['newPassword'].invalid &&-->
-<!--                    changePasswordForm.controls['newPassword'].touched,-->
-<!--                'is-valid': changePasswordForm.controls['newPassword'].valid-->
-<!--              }" />-->
-<!--            <button type="button" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"-->
-<!--                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">-->
-<!--              <mat-icon>{{-->
-<!--                passwordHide ? "visibility_off" : "visibility"-->
-<!--                }}</mat-icon>-->
-<!--            </button>-->
-<!--            <mat-error-->
-<!--              *ngIf=" (changePasswordForm.controls['newPassword'].touched || changePasswordForm.controls['newPassword'].invalid) && changePasswordForm.controls['newPassword'].errors?.['required']">-->
-<!--              This field is required</mat-error>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="col-md-12">-->
-<!--        <div class="form-group">-->
-<!--          <mat-form-field appearance="outline">-->
-<!--            <mat-label>Confirm Password</mat-label>-->
-<!--            <input-->
-<!--              [type]="passwordHide ? 'password' : 'text'"-->
-<!--              matInput-->
-<!--              placeholder="Re-type your passoword"-->
-<!--              name="confirmPassword"-->
-<!--              id="confirmPassword"-->
-<!--              formControlName="confirmPassword"-->
-<!--              required-->
-<!--              [ngClass]="{-->
-<!--                'is-invalid':-->
-<!--                  changePasswordForm.controls['confirmPassword'].invalid &&-->
-<!--                    changePasswordForm.controls['confirmPassword'].touched,-->
-<!--                'is-valid': changePasswordForm.controls['confirmPassword'].valid-->
-<!--              }" />-->
-<!--            <button type="button" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"-->
-<!--                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">-->
-<!--              <mat-icon>{{-->
-<!--                passwordHide ? "visibility_off" : "visibility"-->
-<!--                }}</mat-icon>-->
-<!--            </button>-->
-<!--            <mat-error-->
-<!--              *ngIf="(changePasswordForm.controls['confirmPassword'].touched || changePasswordForm.controls['confirmPassword'].invalid)  && changePasswordForm.controls['confirmPassword'].errors?.['required']">-->
-<!--              This field is required</mat-error>-->
-<!--            <mat-error *ngIf="changePasswordForm.controls['confirmPassword'].errors?.['compare']">-->
-<!--              Both New Password and Confirm password not match-->
-<!--            </mat-error>-->
-
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--&lt;!&ndash;      <div class="col-12 mt-3">&ndash;&gt;-->
-<!--&lt;!&ndash;        <ng-container *ngIf="!loading; else elseButton">&ndash;&gt;-->
-<!--&lt;!&ndash;          <button type="submit" class="btn btn-primary float-right">&ndash;&gt;-->
-<!--&lt;!&ndash;            Update&ndash;&gt;-->
-<!--&lt;!&ndash;          </button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </ng-container>&ndash;&gt;-->
-<!--&lt;!&ndash;        <ng-template #elseButton>&ndash;&gt;-->
-<!--&lt;!&ndash;          <button class="btn btn-primary float-right" type="button" disabled>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;            Updating...&ndash;&gt;-->
-<!--&lt;!&ndash;          </button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </ng-template>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--    </form>-->
+    <div class="row mt-3">
+      <div class="col-md-4 address" *ngFor="let address of data">
+        <h5 class="">{{address.billingName | titlecase}}</h5>
+        <div class="addressData">
+          <h5>
+            <span>Address:</span>
+            {{address.address1}}, {{address.address2}}, {{address.city}}, {{address.state}}-{{address.postalCode}}
+          </h5>
+        </div>
+        <div class="addressData">
+          <h5>
+            <span>Phone number:</span>
+            {{address.mobileNumber}}
+          </h5>
+        </div>
+        <div class="addressAction">
+          <button class="btn btn-outline-secondary mr-2">Edit</button>
+          <button class="btn btn-outline-danger">Delete</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
