@@ -10,6 +10,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Title} from '@angular/platform-browser';
 import {HttpErrorResponse} from '@angular/common/http';
 import {LoginResponse} from "../../Model/auth";
+import {duration, Notify} from "../../Model/notify";
+import {NotificationComponent} from "../../shared/notification/notification.component";
+import {NotifyService} from "../../Service/notify.service";
 
 @Component({
   selector: 'app-login',
@@ -20,10 +23,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private documentTitle: Title,
     private fb: FormBuilder,
-    private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private auth: AuthService,
+    private notify: NotifyService
   ) {
   }
 
@@ -36,12 +40,16 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
   }
 
-  private snackBar(message: string): void {
-    this._snackBar.open(message, 'close', {
-      duration: 3 * 1000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-    });
+  private snackBar(message: string, type: Notify): void {
+    this._snackBar.openFromComponent(NotificationComponent, {
+      duration: duration * 1000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      data: {
+        message,
+        type
+      }
+    })
   }
 
   /**
@@ -68,9 +76,9 @@ export class LoginComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           console.log(error);
           if (error.status == 400) {
-            this.snackBar(error.error.message);
+            this.notify.error(error.error.message);
           } else {
-            this.snackBar(error.statusText);
+            this.notify.error(error.error.message);
           }
         },
       });

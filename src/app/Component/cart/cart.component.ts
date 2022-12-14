@@ -3,6 +3,9 @@ import {CartService} from "../../Service/cart.service";
 import {Cart, CartOperations, CartPayload, CartResponse} from "../../Model/cart";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Title} from "@angular/platform-browser";
+import {DATA, NotificationComponent} from "../../shared/notification/notification.component";
+import {duration, Notify} from "../../Model/notify";
+import {NotifyService} from "../../Service/notify.service";
 
 @Component({
   selector: 'app-cart',
@@ -11,12 +14,12 @@ import {Title} from "@angular/platform-browser";
 })
 export class CartComponent implements OnInit {
 
-  pageTitle:string = "Cart | Online Shopping for Men & Women Shoes"
+  pageTitle: string = "Cart | Online Shopping for Men & Women Shoes"
   cartOfUser !: Cart;
 
   constructor(
-    private documentTitle:Title,
-    private _snackBar: MatSnackBar,
+    private documentTitle: Title,
+    private notify: NotifyService,
     private cartService: CartService
   ) {
   }
@@ -24,14 +27,6 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.documentTitle.setTitle(this.pageTitle);
     this.getCartData()
-  }
-
-  private snackBar(message: string): void {
-    this._snackBar.open(message, 'close', {
-      duration: 3 * 1000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-    });
   }
 
   getCartData() {
@@ -56,8 +51,8 @@ export class CartComponent implements OnInit {
     }
     this.cartService.updateCartItem(payload).subscribe({
       next: (response: CartResponse) => {
-        this.snackBar(response.message)
         this.getCartData()
+        this.notify.success(response.message)
       }
     })
   }
@@ -73,10 +68,9 @@ export class CartComponent implements OnInit {
     }
     this.cartService.deleteCartItem(payload).subscribe({
       next: (response: CartResponse) => {
-        this.snackBar(response.message)
+        this.notify.success(response.message)
         this.getCartData()
       }
     })
   }
-
 }

@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="createBillingForm">
+    <form [formGroup]="createBillingForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -214,8 +214,13 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="form-group">
-          <button class="btn btn-primary">Create</button>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group float-right">
+            <button type="button" class="btn btn-outline-secondary mr-2" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
         </div>
       </div>
     </form>

@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="updateBillingForm">
+    <form [formGroup]="updateBillingForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -212,6 +212,14 @@
                 Minimum length is 8 characters
               </mat-error>
             </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group float-right">
+            <button type="button" class="btn btn-outline-secondary mr-2" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Update</button>
           </div>
         </div>
       </div>

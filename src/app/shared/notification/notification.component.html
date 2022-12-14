@@ -1,0 +1,7 @@
+<div [class]="getClass()" role="alert" [ngSwitch]="data.type">
+  <i class="dripicons-checkmark mr-2" *ngSwitchCase="'success'"></i>
+  <i class="dripicons-information mr-2" *ngSwitchCase="'info'"></i>
+  <i class="dripicons-wrong mr-2" *ngSwitchCase="'danger'"></i>
+  <i class="dripicons-warning mr-2" *ngSwitchCase="'warning'"></i>
+  {{data.message}}
+</div>

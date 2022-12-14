@@ -8,6 +8,10 @@ import {Router} from "@angular/router";
 import {CartOperations, CartPayload, CartResponse} from "../../Model/cart";
 import {CartService} from "../../Service/cart.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {duration, Notify} from "../../Model/notify";
+import {NotificationComponent} from "../../shared/notification/notification.component";
+import {NotifyService} from "../../Service/notify.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -18,11 +22,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private documentTitle: Title,
-    private _snackBar: MatSnackBar,
     private auth: AuthService,
     private user: UserService,
     private productService: ProductService,
     private cartService: CartService,
+    private notify: NotifyService
   ) {
   }
 
@@ -44,20 +48,15 @@ export class HomeComponent implements OnInit {
     this.getProducts()
   }
 
-  private snackBar(message: string): void {
-    this._snackBar.open(message, 'close', {
-      duration: 3 * 1000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-    });
-  }
-
   getProducts() {
     this.productService.getProduct().subscribe({
       next: (products: Product[]) => {
         console.log(products)
         this.products = products;
         this.changeFilter("orderAsc")
+      },
+      error: (err: HttpErrorResponse) => {
+        this.notify.error(err.error.message)
       }
     })
   }
@@ -99,7 +98,7 @@ export class HomeComponent implements OnInit {
     }
     this.cartService.addToCart(payload).subscribe({
       next: (response: CartResponse) => {
-        this.snackBar(response.message)
+        this.notify.success(response.message)
       }
     })
   }

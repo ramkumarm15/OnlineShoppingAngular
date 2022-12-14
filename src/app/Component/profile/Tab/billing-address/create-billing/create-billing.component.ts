@@ -1,5 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
+import {BillingAddressService} from "../../../../../Service/billing-address.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {duration, Notify} from "../../../../../Model/notify";
+import {NotificationComponent} from "../../../../../shared/notification/notification.component";
+import {NotifyService} from "../../../../../Service/notify.service";
 
 @Component({
   selector: 'app-create-billing',
@@ -9,7 +16,10 @@ import {FormBuilder, Validators} from "@angular/forms";
 export class CreateBillingComponent implements OnInit {
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service: BillingAddressService,
+    private dialogRef: MatDialogRef<CreateBillingComponent>,
+    private notify: NotifyService
   ) {
   }
 
@@ -20,14 +30,35 @@ export class CreateBillingComponent implements OnInit {
     city: ['', [Validators.required]],
     state: ['', [Validators.required]],
     postalCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-    mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+    mobileNumber: ['', [Validators.required, Validators.minLength(10)]],
   })
 
   ngOnInit(): void {
   }
 
-  onSubmit() {
-    console.log(this.createBillingForm.value)
+  onCancel(): void {
+    this.dialogRef.close();
   }
 
+  onSubmit() {
+    console.log(this.createBillingForm.value)
+    if (this.createBillingForm.valid) {
+      this.service.createBillingAddress(this.createBillingForm.value).subscribe({
+        next: (response: BillingResponse) => {
+          console.log(response);
+          this.notify.success(response.message);
+          this.onCancel();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err)
+          this.notify.error(err.error.message)
+        }
+      })
+    }
+  }
+
+}
+
+interface BillingResponse {
+  message: string
 }

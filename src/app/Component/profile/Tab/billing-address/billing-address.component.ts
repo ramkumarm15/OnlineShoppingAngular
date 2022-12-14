@@ -3,6 +3,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {CreateBillingComponent} from "./create-billing/create-billing.component";
 import {BillingAddressService} from "../../../../Service/billing-address.service";
 import {BillingAddress} from "../../../../Model/billing-address";
+import {UpdateBillingComponent} from "./update-billing/update-billing.component";
+import {DeleteBillingComponent} from "./delete-billing/delete-billing.component";
 
 @Component({
   selector: 'app-billing-address',
@@ -32,12 +34,37 @@ export class BillingAddressComponent implements OnInit {
     })
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(CreateBillingComponent);
+  openDialog(comp: string, id: number = 0) {
+    if (comp === 'create') {
+      const dialogRef = this.dialog.open(CreateBillingComponent);
 
-    dialogRef.afterClosed().subscribe(res => {
-      console.log(res)
-    })
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res)
+        this.getData();
+      })
+    } else if (comp === 'update') {
+      const dialogRef = this.dialog.open(UpdateBillingComponent, {
+        data: {
+          id
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res)
+        this.getData();
+      })
+    } else if (comp === 'delete') {
+      const dialogRef = this.dialog.open(DeleteBillingComponent, {
+        data: {
+          id
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        console.log(res)
+        this.getData();
+      })
+    }
   }
 
 }

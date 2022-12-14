@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/Service/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Title} from '@angular/platform-browser';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/Service/auth.service';
 import {UserResponse} from "../../Model/user";
 import {HttpErrorResponse} from "@angular/common/http";
+import {NotificationComponent} from "../../shared/notification/notification.component";
+import {duration, Notify} from "../../Model/notify";
+import {NotifyService} from "../../Service/notify.service";
 
 @Component({
   selector: 'app-register',
@@ -17,9 +20,10 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar,
+    private notify: NotifyService,
     private documentTitle: Title
-  ) {}
+  ) {
+  }
 
   passwordHide: boolean = true;
 
@@ -27,14 +31,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.documentTitle.setTitle(this.pageTitle);
-  }
-
-  snackBar(message: string): void {
-    this._snackBar.open(message, 'close', {
-      duration: 3 * 1000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-    });
   }
 
   registerForm: FormGroup = this.fb.group({
@@ -58,17 +54,16 @@ export class RegisterComponent implements OnInit {
       this.auth.register(this.registerForm.value).subscribe({
         next: (data: UserResponse) => {
           console.log(data);
-          if (data.status == 200) {
-            this.snackBar(data.message);
-            this.router.navigate(['/login']);
-          }
+          this.notify.success(data.message);
+          this.router.navigate(['/login']);
+
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
           if (error.status == 400) {
-            this.snackBar(error.error.message);
+            this.notify.error(error.error.message);
           } else {
-            this.snackBar(error.statusText);
+            this.notify.error(error.statusText);
           }
         },
       });

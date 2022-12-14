@@ -38,6 +38,8 @@ import {CartComponent} from "./Component/cart/cart.component";
  */
 import {HttpReqInterceptor} from './Interceptor/httpreq.interceptor';
 import {ErrorInterceptor} from './Interceptor/error.interceptor';
+import { NotificationComponent } from './shared/notification/notification.component';
+import { DeleteBillingComponent } from './Component/profile/Tab/billing-address/delete-billing/delete-billing.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import {ErrorInterceptor} from './Interceptor/error.interceptor';
     BillingAddressComponent,
     UpdateBillingComponent,
     CreateBillingComponent,
-    CartComponent
+    CartComponent,
+    NotificationComponent,
+    DeleteBillingComponent
   ],
   imports: [
     BrowserModule,

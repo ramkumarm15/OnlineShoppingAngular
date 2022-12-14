@@ -4,6 +4,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {User, UserResponse} from 'src/app/Model/user';
 import {UserService} from 'src/app/Service/user.service';
+import {duration, Notify} from "../../../../Model/notify";
+import {NotificationComponent} from "../../../../shared/notification/notification.component";
+import {NotifyService} from "../../../../Service/notify.service";
 
 @Component({
   selector: 'app-tabProfile',
@@ -14,15 +17,11 @@ export class TabProfileComponent implements OnInit {
 
   loading: boolean = false;
   dataLoading: boolean = false;
-  durationInSec: number = 1.5;
-  horizontalPosition: MatSnackBarHorizontalPosition = "end"
-  verticalPosition: MatSnackBarVerticalPosition = "top";
-
 
   constructor(
     private fb: FormBuilder,
     private user: UserService,
-    private _snackBar: MatSnackBar
+    private notify: NotifyService
   ) {
   }
 
@@ -55,16 +54,8 @@ export class TabProfileComponent implements OnInit {
         this.setFormValue(this.user.userData);
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar(err.error.message);
+        this.notify.error(err.error.message);
       },
-    });
-  }
-
-  private snackBar(message: string): void {
-    this._snackBar.open(message, 'close', {
-      duration: this.durationInSec * 1000,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
     });
   }
 
@@ -78,11 +69,11 @@ export class TabProfileComponent implements OnInit {
           .subscribe({
             next: (res: UserResponse) => {
               this.getUserData();
-              this.snackBar(res.message);
+              this.notify.success(res.message);
               this.loading = false;
             },
             error: (err: HttpErrorResponse) => {
-              this.snackBar(err.error.message);
+              this.notify.error(err.error.message);
             },
           });
       }, 2000);
