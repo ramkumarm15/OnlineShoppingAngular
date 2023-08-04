@@ -1,0 +1,82 @@
+<main class="home">
+  <nav class="container mt-lg-4 pt-2" aria-label="breadcrumb">
+    <div class="row">
+      <div class="col-12">
+        <ol class="breadcrumb float-end mb-0 pt-5">
+          <li class="breadcrumb-item"><a>Dashboard</a></li>
+          <li class="breadcrumb-item active">Shop</li>
+        </ol>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Shop</h1>
+    <div class="row">
+      <div class="col-12 filterAction">
+        <div class="form-group form-floating m-0 searchForm">
+          <input
+            placeholder="Search products"
+            name="search"
+            id="search"
+            class="form-control"
+            [(ngModel)]="searchQuery.name"
+          />
+          <label for="search">Search</label>
+        </div>
+        <div class="sortAction">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-outline-secondary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Sort
+            </button>
+            <div class="dropdown-menu mx-1">
+              <button (click)="changeFilter('orderAsc')" class="dropdown-item">
+                Price: Low to High
+              </button>
+              <button (click)="changeFilter('orderDesc')" class="dropdown-item">
+                Price: High to Low
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <ng-container *ngIf="products !== []">
+        <div
+          class="col-md-4"
+          *ngFor="let product of products | filterBy: searchQuery"
+        >
+          <div class="card mb-5 productCard">
+            <div class="productImage">
+              <img
+                [src]="product.image"
+                class="card-img-top"
+                [alt]="product.name"
+              />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title productTitle">
+                <a>{{ product.name | titlecase }}</a>
+              </h5>
+              <div class="productAction">
+                <p>{{ product.price | currency: "INR" }}</p>
+                <a
+                  class="btn btn-primary"
+                  *ngIf="authCheck"
+                  (click)="addToCart(product.id)"
+                  >Add to cart</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</main>
